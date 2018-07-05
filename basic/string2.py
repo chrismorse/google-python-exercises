@@ -16,8 +16,15 @@
 # If the string length is less than 3, leave it unchanged.
 # Return the resulting string.
 def verbing(s):
-  # +++your code here+++
-  return
+
+  verb = s
+  if len(s) >= 3:
+    if s[-3:] == 'ing':
+      verb = s + 'ly'
+    else:
+      verb = s + 'ing'
+
+  return verb
 
 
 # E. not_bad
@@ -29,8 +36,13 @@ def verbing(s):
 # So 'This dinner is not that bad!' yields:
 # This dinner is good!
 def not_bad(s):
-  # +++your code here+++
-  return
+
+  good = s
+
+  if s.find("not") < s.find("bad"):
+    good = s[:s.find("not")] + "good" + s[s.find("bad")+3:]
+
+  return good
 
 
 # F. front_back
@@ -41,8 +53,18 @@ def not_bad(s):
 # Given 2 strings, a and b, return a string of the form
 #  a-front + b-front + a-back + b-back
 def front_back(a, b):
-  # +++your code here+++
-  return
+
+  amid = int(len(a) / 2)
+  bmid = int(len(b) / 2)
+
+  if len(a) % 2 == 1:
+    amid = amid + 1
+
+  if len(b) % 2 == 1:
+    bmid = bmid + 1  
+
+
+  return a[:amid] + b[:bmid] + a[amid:] + b[bmid:]
 
 
 # Simple provided test() function used in main() to print
@@ -52,26 +74,26 @@ def test(got, expected):
     prefix = ' OK '
   else:
     prefix = '  X '
-  print '%s got: %s expected: %s' % (prefix, repr(got), repr(expected))
+  print('%s got: %s expected: %s' % (prefix, repr(got), repr(expected)))
 
 
 # main() calls the above functions with interesting inputs,
 # using the above test() to check if the result is correct or not.
 def main():
-  print 'verbing'
+  print('verbing')
   test(verbing('hail'), 'hailing')
   test(verbing('swiming'), 'swimingly')
   test(verbing('do'), 'do')
 
   print
-  print 'not_bad'
+  print('not_bad')
   test(not_bad('This movie is not so bad'), 'This movie is good')
   test(not_bad('This dinner is not that bad!'), 'This dinner is good!')
   test(not_bad('This tea is not hot'), 'This tea is not hot')
   test(not_bad("It's bad yet not"), "It's bad yet not")
 
   print
-  print 'front_back'
+  print('front_back')
   test(front_back('abcd', 'xy'), 'abxcdy')
   test(front_back('abcde', 'xyz'), 'abcxydez')
   test(front_back('Kitten', 'Donut'), 'KitDontenut')
